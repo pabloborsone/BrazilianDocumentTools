@@ -1,12 +1,18 @@
-import XCTest
 @testable import BrazilianDocumentTools
 
-final class BrazilianDocumentToolsTests: XCTestCase {
-    func testExample() throws {
-        // XCTest Documentation
-        // https://developer.apple.com/documentation/xctest
+import XCTest
 
-        // Defining Test Cases and Test Methods
-        // https://developer.apple.com/documentation/xctest/defining_test_cases_and_test_methods
+final class BrazilianDocumentToolsTests: XCTestCase {
+    private let sut = CPFValidator()
+
+    func testGivenAValidCPFWhenValidatorIsCalledThenCPFValidationWillSucceed() throws {
+        XCTAssertTrue(sut.validate(cpf: "312.826.920-38"))
+        XCTAssertTrue(sut.validate(cpf: "31282692038"))
+    }
+
+    func testGivenAnInvalidCPFWhenValidatorIsCalledThenCPFValidationWillFail() throws {
+        XCTAssertFalse(sut.validate(cpf: "333.222.111-00"))
+        XCTAssertFalse(sut.validate(cpf: "33322211100"))
+        XCTAssertFalse(sut.validate(cpf: "12345"))
     }
 }
